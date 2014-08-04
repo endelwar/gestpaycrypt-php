@@ -41,8 +41,8 @@ class GestPayCrypt
     private $Language;
     private $CustomInfo;
     private $AuthorizationCode;
-    protected  $ErrorCode;
-    protected  $ErrorDescription;
+    protected $ErrorCode;
+    protected $ErrorDescription;
     private $BankTransactionID;
     private $AlertCode;
     private $AlertDescription;
@@ -343,8 +343,7 @@ class GestPayCrypt
     {
         if ($type == "crypt") {
             return $this->ScriptEnCrypt;
-        }
-        else {
+        } else {
             return $this->ScriptDeCrypt;
         }
     }
@@ -417,11 +416,11 @@ class GestPayCrypt
 
         foreach ($vars as $name => $value) {
             if (!empty($value)) {
-                $args .= $name."=".$value.$this->separator;
+                $args .= $name . "=" . $value . $this->separator;
             }
         }
 
-        $args = substr($args, 0, - strlen($this->separator));
+        $args = substr($args, 0, -strlen($this->separator));
         $args .= $this->CustomInfo;
         $args = str_replace(" ", "�", $args);
 
@@ -457,8 +456,7 @@ class GestPayCrypt
 
         if ($this->Decrypted == -1) {
             return false;
-        }
-        elseif (empty($this->Decrypted)) {
+        } elseif (empty($this->Decrypted)) {
             $this->ErrorCode = "9999";
             $this->ErrorDescription = "Empty decrypted string";
 
@@ -477,18 +475,25 @@ class GestPayCrypt
         $errno = "";
         $errstr = "";
 
-        $socket = fsockopen($this->GetTransport() . "://" . $this->GetDomainName(), $this->GetPort(), $errno, $errstr, 60);
+        $socket = fsockopen(
+            $this->GetTransport() . "://" . $this->GetDomainName(),
+            $this->GetPort(),
+            $errno,
+            $errstr,
+            60
+        );
 
         if (!$socket) {
             $this->ErrorCode = "9999";
-            $this->ErrorDescription = "Impossible to connect to host: " . $this->GetTransport() . "://" . $this->GetDomainName() . ':' . $this->GetPort();
+            $this->ErrorDescription = "Impossible to connect to host: " .
+                $this->GetTransport() . "://" . $this->GetDomainName() . ':' . $this->GetPort();
 
             return -1;
         }
 
-        $uri = $this->GetScriptType($type)."?a=".$a."&b=".$b;
+        $uri = $this->GetScriptType($type) . "?a=" . $a . "&b=" . $b;
 
-        fputs($socket, "GET ".$uri." HTTP/1.0\r\n\r\n");
+        fputs($socket, "GET " . $uri . " HTTP/1.0\r\n\r\n");
 
         $line = "";
 
@@ -508,24 +513,21 @@ class GestPayCrypt
         $parsed = "";
         $matches = array();
 
-        if (preg_match("/#".$type."string#([\w\W]*)#\/".$type."string#/", $response, $matches)) {
+        if (preg_match("/#" . $type . "string#([\w\W]*)#\/" . $type . "string#/", $response, $matches)) {
             $parsed = trim($matches[1]);
-        }
-        elseif (preg_match("/#error#([\w\W]*)#\/error#/", $response, $matches)) {
+        } elseif (preg_match("/#error#([\w\W]*)#\/error#/", $response, $matches)) {
             $err = explode("-", $matches[1]);
 
             if (empty($err[0]) && empty($err[1])) {
                 $this->ErrorCode = "9999";
                 $this->ErrorDescription = "Unknown error";
-            }
-            else {
+            } else {
                 $this->ErrorCode = trim($err[0]);
                 $this->ErrorDescription = trim($err[1]);
             }
 
             return -1;
-        }
-        else {
+        } else {
             $this->ErrorCode = "9999";
             $this->ErrorDescription = "Response from server not valid";
 
@@ -544,66 +546,47 @@ class GestPayCrypt
 
             if (preg_match("/^PAY1_UICCODE/", $tagPAY1)) {
                 $this->Currency = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_AMOUNT/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_AMOUNT/", $tagPAY1)) {
                 $this->Amount = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_SHOPTRANSACTIONID/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_SHOPTRANSACTIONID/", $tagPAY1)) {
                 $this->ShopTransactionID = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_CHNAME/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_CHNAME/", $tagPAY1)) {
                 $this->BuyerName = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_CHEMAIL/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_CHEMAIL/", $tagPAY1)) {
                 $this->BuyerEmail = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_AUTHORIZATIONCODE/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_AUTHORIZATIONCODE/", $tagPAY1)) {
                 $this->AuthorizationCode = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_ERRORCODE/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_ERRORCODE/", $tagPAY1)) {
                 $this->ErrorCode = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_ERRORDESCRIPTION/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_ERRORDESCRIPTION/", $tagPAY1)) {
                 $this->ErrorDescription = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_BANKTRANSACTIONID/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_BANKTRANSACTIONID/", $tagPAY1)) {
                 $this->BankTransactionID = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_ALERTCODE/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_ALERTCODE/", $tagPAY1)) {
                 $this->AlertCode = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_ALERTDESCRIPTION/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_ALERTDESCRIPTION/", $tagPAY1)) {
                 $this->AlertDescription = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_CARDNUMBER/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_CARDNUMBER/", $tagPAY1)) {
                 $this->CardNumber = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_EXPMONTH/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_EXPMONTH/", $tagPAY1)) {
                 $this->ExpMonth = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_EXPYEAR/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_EXPYEAR/", $tagPAY1)) {
                 $this->ExpYear = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_COUNTRY/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_COUNTRY/", $tagPAY1)) {
                 $this->ExpYear = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_VBVRISP/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_VBVRISP/", $tagPAY1)) {
                 $this->ExpYear = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_VBV/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_VBV/", $tagPAY1)) {
                 $this->ExpYear = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_IDLANGUAGE/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_IDLANGUAGE/", $tagPAY1)) {
                 $this->Language = $tagPAY1val[1];
-            }
-            elseif (preg_match("/^PAY1_TRANSACTIONRESULT/", $tagPAY1)) {
+            } elseif (preg_match("/^PAY1_TRANSACTIONRESULT/", $tagPAY1)) {
                 $this->TransactionResult = $tagPAY1val[1];
-            }
-            else {
-                $this->CustomInfo .= $tagPAY1.$this->separator;
+            } else {
+                $this->CustomInfo .= $tagPAY1 . $this->separator;
             }
         }
 
-        $this->CustomInfo = substr($this->CustomInfo, 0, - strlen($this->separator));
+        $this->CustomInfo = substr($this->CustomInfo, 0, -strlen($this->separator));
     }
 }

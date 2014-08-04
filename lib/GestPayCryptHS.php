@@ -31,8 +31,8 @@ class GestPayCryptHS extends GestPayCrypt
 {
     private $curl_bin;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
         parent::__construct();
 
         $this->curl_bin = "/usr/bin/curl";
@@ -42,48 +42,46 @@ class GestPayCryptHS extends GestPayCrypt
         $this->SetPort("443");
         $this->SetScriptEnCrypt("/CryptHTTPS/Encrypt.asp");
         $this->SetScriptDeCrypt("/CryptHTTPS/Decrypt.asp");
-	}
+    }
 
-	protected function _http_get_response($type, $a, $b)
-	{
-		if (extension_loaded("openssl")) {
-			return parent::_http_get_response($type, $a, $b);
-		}
-		elseif (extension_loaded("curl")) {
-            $uri = $this->GetScriptType($type)."?a=".$a."&b=".$b;
+    protected function _http_get_response($type, $a, $b)
+    {
+        if (extension_loaded("openssl")) {
+            return parent::_http_get_response($type, $a, $b);
+        } elseif (extension_loaded("curl")) {
+            $uri = $this->GetScriptType($type) . "?a=" . $a . "&b=" . $b;
 
-			$curl = curl_init("https://".$this->GetDomainName().$uri);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			$tmp = curl_exec($curl);
-			curl_close($curl);
+            $curl = curl_init("https://" . $this->GetDomainName() . $uri);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            $tmp = curl_exec($curl);
+            curl_close($curl);
 
-			$lines = explode("\n", $tmp);
+            $lines = explode("\n", $tmp);
 
-			return $lines[0];
-		}
-		else {
-            $uri = $this->GetScriptType($type)."?a=".$a."&b=".$b;
+            return $lines[0];
+        } else {
+            $uri = $this->GetScriptType($type) . "?a=" . $a . "&b=" . $b;
 
-			$exec_str = $this->curl_bin." -s -m 120 -L ".
-			            escapeshellarg("https://".$this->GetDomainName().$uri);
+            $exec_str = $this->curl_bin . " -s -m 120 -L " .
+                escapeshellarg("https://" . $this->GetDomainName() . $uri);
 
-			exec($exec_str, $ret_arr, $ret_num);
+            exec($exec_str, $ret_arr, $ret_num);
 
-			if ($ret_num != 0) {
-				$this->ErrorCode = "9999";
-				$this->ErrorDescription = "Error while executing: ".$exec_str;
+            if ($ret_num != 0) {
+                $this->ErrorCode = "9999";
+                $this->ErrorDescription = "Error while executing: " . $exec_str;
 
-				return -1;
-			}
+                return -1;
+            }
 
-			if (!is_array($ret_arr)) {
-				$this->ErrorCode = "9999";
-				$this->ErrorDescription = "Error while executing: ".$exec_str." - "."\$ret_arr is not an array";
+            if (!is_array($ret_arr)) {
+                $this->ErrorCode = "9999";
+                $this->ErrorDescription = "Error while executing: " . $exec_str . " - " . "\$ret_arr is not an array";
 
-				return -1;
-			}
+                return -1;
+            }
 
-			return $ret_arr[0];
-		}
-	}
+            return $ret_arr[0];
+        }
+    }
 }
