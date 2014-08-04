@@ -607,5 +607,3 @@ class GestPayCrypt
         $this->CustomInfo = substr($this->CustomInfo, 0, - strlen($this->separator));
     }
 }
-
-?>

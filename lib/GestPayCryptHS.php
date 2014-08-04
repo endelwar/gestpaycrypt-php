@@ -87,5 +87,3 @@ class GestPayCryptHS extends GestPayCrypt
 		}
 	}
 }
-
-?>
