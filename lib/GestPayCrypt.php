@@ -89,7 +89,7 @@ class GestPayCrypt
         $this->DomainName = "ecomm.sella.it";
         $this->Port = "80";
         $this->ScriptEnCrypt = "/CryptHTTP/Encrypt.asp";
-        $this->ScriptDecrypt = "/CryptHTTP/Decrypt.asp";
+        $this->ScriptDeCrypt = "/CryptHTTP/Decrypt.asp";
         $this->separator = "*P1*";
         $this->errDescription = "";
         $this->errNumber = "0";
