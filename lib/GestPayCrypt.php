@@ -62,6 +62,8 @@ class GestPayCrypt
     private $country;
     private $vbvrisp;
     private $vbv;
+    private $ScriptEnCrypt;
+    private $ScriptDeCrypt;
 
     public function __construct()
     {
@@ -101,6 +103,11 @@ class GestPayCrypt
         $this->vbv = "";
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetShopLogin($val)
     {
         $this->ShopLogin = $val;
@@ -113,6 +120,11 @@ class GestPayCrypt
         return $this->ShopLogin;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetCurrency($val)
     {
         $this->Currency = $val;
@@ -125,6 +137,11 @@ class GestPayCrypt
         return $this->Currency;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetAmount($val)
     {
         $this->Amount = $val;
@@ -137,6 +154,11 @@ class GestPayCrypt
         return $this->Amount;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetShopTransactionID($val)
     {
         $this->ShopTransactionID = urlencode(trim($val));
@@ -149,6 +171,11 @@ class GestPayCrypt
         return urldecode($this->ShopTransactionID);
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetCardNumber($val)
     {
         $this->CardNumber = $val;
@@ -156,6 +183,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetExpMonth($val)
     {
         $this->ExpMonth = $val;
@@ -163,6 +195,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetExpYear($val)
     {
         $this->ExpYear = $val;
@@ -170,6 +207,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetMIN($val)
     {
         $this->Min = $val;
@@ -177,6 +219,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetCVV($val)
     {
         $this->CVV = $val;
@@ -184,6 +231,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetBuyerName($val)
     {
         $this->BuyerName = urlencode(trim($val));
@@ -191,6 +243,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetBuyerEmail($val)
     {
         $this->BuyerEmail = trim($val);
@@ -198,6 +255,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetLanguage($val)
     {
         $this->Language = trim($val);
@@ -205,6 +267,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetCustomInfo($val)
     {
         $this->CustomInfo = urlencode(trim($val));
@@ -212,11 +279,19 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function GetCustomInfo()
     {
         return urldecode($this->CustomInfo);
     }
 
+    /**
+     * @param string $val
+     *
+     * @return $this
+     */
     public function SetEncryptedString($val)
     {
         $this->EncryptedString = $val;
@@ -289,6 +364,11 @@ class GestPayCrypt
         return $this->EncryptedString;
     }
 
+    /**
+     * @param string $port
+     *
+     * @return $this
+     */
     public function SetPort($port)
     {
         $this->Port = $port;
@@ -301,6 +381,11 @@ class GestPayCrypt
         return $this->Port;
     }
 
+    /**
+     * @param string $domain_name
+     *
+     * @return $this
+     */
     public function SetDomainName($domain_name)
     {
         $this->DomainName = $domain_name;
@@ -318,6 +403,11 @@ class GestPayCrypt
         return $this->Transport;
     }
 
+    /**
+     * @param string $type
+     *
+     * @return $this
+     */
     public function SetTransport($type)
     {
         $this->Transport = $type;
@@ -325,6 +415,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $script
+     *
+     * @return $this
+     */
     public function SetScriptEnCrypt($script)
     {
         $this->ScriptEnCrypt = $script;
@@ -332,6 +427,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $script
+     *
+     * @return string
+     */
     public function SetScriptDeCrypt($script)
     {
         $this->ScriptDeCrypt = $script;
@@ -339,6 +439,11 @@ class GestPayCrypt
         return $this;
     }
 
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
     public function GetScriptType($type)
     {
         if ($type == "crypt") {
@@ -470,6 +575,13 @@ class GestPayCrypt
         return true;
     }
 
+    /**
+     * @param string $type
+     * @param string $a
+     * @param string $b
+     * 
+     * @return int|string
+     */
     protected function _http_get_response($type, $a, $b)
     {
         $errno = "";
@@ -506,9 +618,14 @@ class GestPayCrypt
         return $line;
     }
 
+    /**
+     * @param string $type
+     * @param string $response
+     *
+     * @return string
+     */
     private function _parse_response($type, $response)
     {
-        $parsed = "";
         $matches = array();
 
         if (preg_match("/#" . $type . "string#([\w\W]*)#\/" . $type . "string#/", $response, $matches)) {
