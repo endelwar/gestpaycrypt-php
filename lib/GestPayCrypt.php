@@ -382,7 +382,7 @@ class GestPayCrypt
             return false;
         }
 
-        $response = $this->_http_get_response($this->ShopLogin, $this->_get_parsed_encrypt_arguments());
+        $response = $this->_http_get_response("crypt", $this->ShopLogin, $this->_get_parsed_encrypt_arguments());
 
         if ($response == -1) {
             false;
@@ -447,7 +447,7 @@ class GestPayCrypt
             return false;
         }
 
-        $response = $this->_http_get_response($this->ShopLogin, $this->EncryptedString);
+        $response = $this->_http_get_response("decrypt", $this->ShopLogin, $this->EncryptedString);
 
         if ($response == -1) {
             false;
