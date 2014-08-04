@@ -465,11 +465,11 @@ class GestPayCrypt
         $errno = "";
         $errstr = "";
 
-        $socket = fsockopen($this->GetTransport."://".$this->GetDomainName(), $this->GetPort(), $errno, $errstr, 60);
+        $socket = fsockopen($this->GetTransport . "://" . $this->GetDomainName(), $this->GetPort(), $errno, $errstr, 60);
 
         if (!$socket) {
             $this->ErrorCode = "9999";
-            $this->ErrorDescription = "Impossible to connect to host: ".$host;
+            $this->ErrorDescription = "Impossible to connect to host: " . $this->GetTransport . "://" . $this->GetDomainName() . ':' . $this->GetPort();
 
             return -1;
         }
