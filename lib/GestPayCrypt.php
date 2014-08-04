@@ -41,8 +41,8 @@ class GestPayCrypt
     private $Language;
     private $CustomInfo;
     private $AuthorizationCode;
-    private $ErrorCode;
-    private $ErrorDescription;
+    protected  $ErrorCode;
+    protected  $ErrorDescription;
     private $BankTransactionID;
     private $AlertCode;
     private $AlertDescription;
