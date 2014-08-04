@@ -495,8 +495,6 @@ class GestPayCrypt
 
         fputs($socket, "GET " . $uri . " HTTP/1.0\r\n\r\n");
 
-        $line = "";
-
         while (fgets($socket, 4096) != "\r\n") {
             ;
         }
