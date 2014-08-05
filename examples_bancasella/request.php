@@ -1,4 +1,4 @@
-<?
+<?php
 // PAGINA PER LA CONNESSIONE
 // ALLA PAGINA DI PAGAMENTO
 // (RICHIESTA DI PAGAMENTO)
@@ -55,12 +55,12 @@ $objCrypt->Encrypt();
 $ed=$objCrypt->GetErrorDescription();
 if($ed!="")
 {
-echo "Errore di encoding: " . $objCrypt->GetErrorCode() . " " . $ed . "<br>";
+    echo "Errore di encoding: " . $objCrypt->GetErrorCode() . " " . $ed . "<br>";
 }
 else
 {
-$b = $objCrypt->GetEncryptedString();
-$a = $objCrypt->GetShopLogin();
+    $b = $objCrypt->GetEncryptedString();
+    $a = $objCrypt->GetShopLogin();
 }
 
 //FINE SCRIPT PER CRITTOGRAFIA.
@@ -72,7 +72,7 @@ $a = $objCrypt->GetShopLogin();
 
 Cliccare su OK per inviare i dati a Banca Sella
 <form action="https://ecomm.sella.it/gestpay/pagam.asp">
-<input name="a" type="hidden" value="<? echo $a; ?>">
-<input name="b" type="hidden" value="<? echo $b; ?>">
-<input type="submit" value=" OK " name="submit">
+    <input name="a" type="hidden" value="<?php echo $a; ?>">
+    <input name="b" type="hidden" value="<?php echo $b; ?>">
+    <input type="submit" value=" OK " name="submit">
 </form>

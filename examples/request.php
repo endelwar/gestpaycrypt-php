@@ -19,5 +19,3 @@ $url = "https://ecomm.sella.it/gestpay/pagam.asp".
        "&b=".$crypt->GetEncryptedString();
 
 header("Location: ".$url);
-
-?>

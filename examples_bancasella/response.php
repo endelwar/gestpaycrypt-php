@@ -43,5 +43,3 @@ $mycustominfo=trim($objdeCrypt->GetCustomInfo());
 echo $myshoplogin . "<br>\n";
 echo $myamount . " " . $mycurrency . "<br>\n";
 echo $mytransactionresult . "<br>\n";
-
-?>

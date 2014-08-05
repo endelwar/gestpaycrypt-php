@@ -35,5 +35,3 @@ switch ($crypt->GetTransactionResult()) {
 	default:
 		die("Esito transazione indefinito\n");
 }
-
-?>
