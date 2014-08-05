@@ -44,6 +44,29 @@ class GestPayCryptHS extends GestPayCrypt
         $this->SetScriptDeCrypt("/CryptHTTPS/Decrypt.asp");
     }
 
+    /**
+     * @return string
+     */
+    public function GetCurlBin()
+    {
+        return $this->curl_bin;
+    }
+
+    /**
+     * @param string $curl_bin
+     *
+     * @return GestPayCryptHS
+     */
+    public function SetCurlBin($curl_bin)
+    {
+        $this->curl_bin = $curl_bin;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function _http_get_response($type, $a, $b)
     {
         if (extension_loaded("openssl")) {
@@ -62,7 +85,7 @@ class GestPayCryptHS extends GestPayCrypt
         } else {
             $uri = $this->GetScriptType($type) . "?a=" . $a . "&b=" . $b;
 
-            $exec_str = $this->curl_bin . " -s -m 120 -L " .
+            $exec_str = $this->GetCurlBin() . " -s -m 120 -L " .
                 escapeshellarg("https://" . $this->GetDomainName() . $uri);
 
             exec($exec_str, $ret_arr, $ret_num);
