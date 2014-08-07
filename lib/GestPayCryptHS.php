@@ -91,16 +91,12 @@ class GestPayCryptHS extends GestPayCrypt
             exec($exec_str, $ret_arr, $ret_num);
 
             if ($ret_num != 0) {
-                $this->ErrorCode = "9999";
-                $this->ErrorDescription = "Error while executing: " . $exec_str;
-
+                $this->setError('9999', 'Error while executing: ' . $exec_str);
                 return -1;
             }
 
             if (!is_array($ret_arr)) {
-                $this->ErrorCode = "9999";
-                $this->ErrorDescription = "Error while executing: " . $exec_str . " - " . "\$ret_arr is not an array";
-
+                $this->setError('9999', 'Error while executing: ' . $exec_str. ' - $ret_arr is not an array');
                 return -1;
             }
 

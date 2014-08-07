@@ -545,7 +545,7 @@ class GestPayCrypt
     /**
      * @param string $script
      *
-     * @return string
+     * @return GestPayCrypt
      */
     public function SetScriptDeCrypt($script)
     {
@@ -573,34 +573,25 @@ class GestPayCrypt
      */
     public function Encrypt()
     {
-        $this->ErrorCode = "0";
-        $this->ErrorDescription = "";
+        $this->setError('0', '');
 
         if (empty($this->ShopLogin)) {
-            $this->ErrorCode = "546";
-            $this->ErrorDescription = "IDshop not valid";
-
+            $this->setError('546', 'IDshop not valid');
             return false;
         }
 
         if (empty($this->Currency)) {
-            $this->ErrorCode = "552";
-            $this->ErrorDescription = "Currency not valid";
-
+            $this->setError('552', 'Currency not valid');
             return false;
         }
 
         if (empty($this->Amount)) {
-            $this->ErrorCode = "553";
-            $this->ErrorDescription = "Amount not valid";
-
+            $this->setError('553', 'Amount not valid');
             return false;
         }
 
         if (empty($this->ShopTransactionID)) {
-            $this->ErrorCode = "551";
-            $this->ErrorDescription = "Shop Transaction ID not valid";
-
+            $this->setError('551', 'Shop Transaction ID not valid');
             return false;
         }
 
@@ -647,9 +638,12 @@ class GestPayCrypt
         }
 
         $args = substr($args, 0, -strlen($this->separator));
-        $args .= $this->CustomInfo;
-        $args = str_replace(" ", "�", $args);
+        if (strlen($this->CustomInfo) > 0) {
+            $args .= $this->separator . $this->GetCustomInfo();
+        }
 
+        $args = str_replace(" ", "�", $args);
+        var_dump($args);
         return $args;
     }
 
@@ -658,20 +652,15 @@ class GestPayCrypt
      */
     public function Decrypt()
     {
-        $this->ErrorCode = "0";
-        $this->ErrorDescription = "";
+        $this->setError('0', '');
 
         if (empty($this->ShopLogin)) {
-            $this->ErrorCode = "546";
-            $this->ErrorDescription = "IDshop not valid";
-
+            $this->setError('546', 'IDshop not valid');
             return false;
         }
 
         if (empty($this->EncryptedString)) {
-            $this->ErrorCode = "1009";
-            $this->ErrorDescription = "String to Decrypt not valid";
-
+            $this->setError('1009', 'String to Decrypt not valid');
             return false;
         }
 
@@ -686,9 +675,7 @@ class GestPayCrypt
         if ($this->Decrypted == -1) {
             return false;
         } elseif (empty($this->Decrypted)) {
-            $this->ErrorCode = "9999";
-            $this->ErrorDescription = "Empty decrypted string";
-
+            $this->setError('9999', 'Empty decrypted string');
             return false;
         }
 
@@ -720,10 +707,11 @@ class GestPayCrypt
         );
 
         if (!$socket) {
-            $this->ErrorCode = "9999";
-            $this->ErrorDescription = "Impossible to connect to host: " .
-                $this->GetTransport() . "://" . $this->GetDomainName() . ':' . $this->GetPort();
-
+            $this->setError(
+                '9999',
+                "Impossible to connect to host: " .
+                $this->GetTransport() . "://" . $this->GetDomainName() . ':' . $this->GetPort()
+            );
             return -1;
         }
 
@@ -758,17 +746,14 @@ class GestPayCrypt
             $err = explode("-", $matches[1]);
 
             if (empty($err[0]) && empty($err[1])) {
-                $this->ErrorCode = "9999";
-                $this->ErrorDescription = "Unknown error";
+                $this->setError('9999', 'Unknown error');
             } else {
-                $this->ErrorCode = trim($err[0]);
-                $this->ErrorDescription = trim($err[1]);
+                $this->setError(trim($err[0]), trim($err[1]));
             }
 
             return -1;
         } else {
-            $this->ErrorCode = "9999";
-            $this->ErrorDescription = "Response from server not valid";
+            $this->setError('9999', 'Response from server not valid');
 
             return -1;
         }
@@ -827,5 +812,18 @@ class GestPayCrypt
         }
 
         $this->CustomInfo = substr($this->CustomInfo, 0, -strlen($this->separator));
+    }
+
+    /**
+     * @param $errorCode
+     * @param $errorDescription
+     * @return GestPayCrypt
+     */
+    protected function setError($errorCode, $errorDescription)
+    {
+        $this->ErrorCode = $errorCode;
+        $this->ErrorDescription = $errorDescription;
+
+        return $this;
     }
 }
