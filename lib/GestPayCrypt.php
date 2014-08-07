@@ -61,6 +61,7 @@ class GestPayCrypt
     private $Country;
     private $VBV;
     private $VBVrisp;
+    private $ThreeDLevel;
     private $ScriptEnCrypt;
     private $ScriptDeCrypt;
     private $TestEnv;
@@ -100,6 +101,7 @@ class GestPayCrypt
         $this->Country = "";
         $this->VBV = "";
         $this->VBVrisp = "";
+        $this->ThreeDLevel = "";
         $this->TestEnv = false;
     }
 
@@ -352,6 +354,14 @@ class GestPayCrypt
     public function GetVBVrisp()
     {
         return $this->VBVrisp;
+    }
+
+    /**
+     * @return string
+     */
+    public function Get3DLevel()
+    {
+        return $this->ThreeDLevel;
     }
 
     /**
@@ -636,7 +646,7 @@ class GestPayCrypt
             $args .= $this->separator . $this->GetCustomInfo();
         }
 
-        $args = str_replace(" ", "�", $args);
+        $args = str_replace(" ", "§", $args);
 
         return $args;
     }
@@ -673,7 +683,7 @@ class GestPayCrypt
             return false;
         }
 
-        $this->Decrypted = str_replace("�", " ", $this->Decrypted);
+        $this->Decrypted = str_replace("§", " ", $this->Decrypted);
 
         $this->_parse_decrypted_data();
 
@@ -760,7 +770,7 @@ class GestPayCrypt
         $keyval = explode($this->separator, $this->Decrypted);
 
         foreach ($keyval as $tagPAY1) {
-            $tagPAY1val = explode("=/", $tagPAY1);
+            $tagPAY1val = explode("=", $tagPAY1);
 
             if (preg_match("/^PAY1_UICCODE/", $tagPAY1)) {
                 $this->Currency = $tagPAY1val[1];
@@ -800,6 +810,8 @@ class GestPayCrypt
                 $this->Language = $tagPAY1val[1];
             } elseif (preg_match("/^PAY1_TRANSACTIONRESULT/", $tagPAY1)) {
                 $this->TransactionResult = $tagPAY1val[1];
+            } elseif (preg_match("/^PAY1_3DLEVEL/", $tagPAY1)) {
+                $this->ThreeDLevel = $tagPAY1val[1];
             } else {
                 $this->CustomInfo .= $tagPAY1 . $this->separator;
             }
