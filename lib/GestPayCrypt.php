@@ -801,11 +801,11 @@ class GestPayCrypt
             } elseif (preg_match("/^PAY1_EXPYEAR/", $tagPAY1)) {
                 $this->ExpYear = $tagPAY1val[1];
             } elseif (preg_match("/^PAY1_COUNTRY/", $tagPAY1)) {
-                $this->ExpYear = $tagPAY1val[1];
+                $this->Country = $tagPAY1val[1];
             } elseif (preg_match("/^PAY1_VBVRISP/", $tagPAY1)) {
-                $this->ExpYear = $tagPAY1val[1];
+                $this->VBVrisp = $tagPAY1val[1];
             } elseif (preg_match("/^PAY1_VBV/", $tagPAY1)) {
-                $this->ExpYear = $tagPAY1val[1];
+                $this->VBV = $tagPAY1val[1];
             } elseif (preg_match("/^PAY1_IDLANGUAGE/", $tagPAY1)) {
                 $this->Language = $tagPAY1val[1];
             } elseif (preg_match("/^PAY1_TRANSACTIONRESULT/", $tagPAY1)) {
