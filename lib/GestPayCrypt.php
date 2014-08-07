@@ -643,7 +643,7 @@ class GestPayCrypt
         }
 
         $args = str_replace(" ", "�", $args);
-        var_dump($args);
+
         return $args;
     }
 
