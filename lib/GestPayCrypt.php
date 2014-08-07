@@ -321,6 +321,14 @@ class GestPayCrypt
         if (!is_array($arrval)) {
             return false;
         }
+        //check string validity
+        foreach ($arrval as $key => $val) {
+            if (strlen($val) > 300) {
+                $val = substr($val, 0, 300);
+            }
+            $arrval[$key] = urlencode($val);
+        }
+
         $this->CustomInfo = http_build_query($arrval, '', $this->separator);
 
         return $this;
@@ -332,7 +340,7 @@ class GestPayCrypt
         $customInfoArray = array();
         foreach ($allinfo as $singleInfo) {
             $tagval = explode("=", $singleInfo);
-            $customInfoArray[$tagval[0]] = $tagval[1];
+            $customInfoArray[$tagval[0]] = urldecode($tagval[1]);
         }
 
         return $customInfoArray;
