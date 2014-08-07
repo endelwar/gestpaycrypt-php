@@ -11,7 +11,7 @@ $crypt->SetAmount("10"); // Importo. Es.: 1256.50
 $crypt->SetCurrency("242"); // Codice valuta. 242 = euro
 
 if (!$crypt->Encrypt()) {
-	die("Errore: ".$crypt->GetErrorCode().": ".$crypt->GetErrorDescription()."\n");
+    throw new Exception("Error: ".$crypt->GetErrorCode().": ".$crypt->GetErrorDescription()."\n");
 }
 
 $url = "https://ecomm.sella.it/gestpay/pagam.asp".
