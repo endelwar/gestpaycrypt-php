@@ -313,6 +313,32 @@ class GestPayCrypt
     }
 
     /**
+     * @param array $arrval
+     * @return GestPayCrypt|bool
+     */
+    public function SetCustomInfoFromArray(array $arrval)
+    {
+        if (!is_array($arrval)) {
+            return false;
+        }
+        $this->CustomInfo = http_build_query($arrval, '', $this->separator);
+
+        return $this;
+    }
+
+    public function GetCustomInfoToArray()
+    {
+        $allinfo = explode($this->separator, $this->CustomInfo);
+        $customInfoArray = array();
+        foreach ($allinfo as $singleInfo) {
+            $tagval = explode("=", $singleInfo);
+            $customInfoArray[$tagval[0]] = $tagval[1];
+        }
+
+        return $customInfoArray;
+    }
+
+    /**
      * @return string
      */
     public function GetCustomInfo()
