@@ -672,7 +672,7 @@ class GestPayCrypt
             $args .= $this->separator . $this->GetCustomInfo();
         }
 
-        $args = str_replace(" ", "§", $args);
+        $args = str_replace(" ", chr(167), $args);
 
         return $args;
     }
@@ -709,7 +709,7 @@ class GestPayCrypt
             return false;
         }
 
-        $this->Decrypted = str_replace("§", " ", $this->Decrypted);
+        $this->Decrypted = str_replace(chr(167), " ", $this->Decrypted);
 
         $this->_parse_decrypted_data();
 
