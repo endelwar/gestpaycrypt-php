@@ -45,8 +45,8 @@ $objCrypt->SetShopLogin($myshoplogin);
 $objCrypt->SetCurrency($mycurrency);
 $objCrypt->SetAmount($myamount);
 $objCrypt->SetShopTransactionID($myshoptransactionID);
-// $objCrypt->SetBuyerName($mybuyername);
-// $objCrypt->SetBuyerEmail($mybuyeremail);
+$objCrypt->SetBuyerName($mybuyername);
+$objCrypt->SetBuyerEmail($mybuyeremail);
 $objCrypt->SetLanguage($mylanguage);
 $objCrypt->SetCustomInfo($mycustominfo);
 
