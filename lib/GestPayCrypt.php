@@ -47,7 +47,6 @@ class GestPayCrypt
     private $AlertCode;
     private $AlertDescription;
     private $EncryptedString;
-    private $ToBeEncrypt;
     private $Decrypted;
     private $TransactionResult;
     private $Transport;
@@ -56,8 +55,6 @@ class GestPayCrypt
     private $PaymentUrl;
     private $Port;
     private $separator;
-    private $errDescription;
-    private $errNumber;
     private $Version;
     private $Min;
     private $CVV;
@@ -88,7 +85,6 @@ class GestPayCrypt
         $this->AlertCode = "";
         $this->AlertDescription = "";
         $this->EncryptedString = "";
-        $this->ToBeEncrypt = "";
         $this->Decrypted = "";
         $this->Transport = "tcp";
         $this->DomainName = "ecomm.sella.it";
@@ -98,8 +94,6 @@ class GestPayCrypt
         $this->ScriptEnCrypt = "/CryptHTTP/Encrypt.asp";
         $this->ScriptDeCrypt = "/CryptHTTP/Decrypt.asp";
         $this->separator = "*P1*";
-        $this->errDescription = "";
-        $this->errNumber = "0";
         $this->Version = "2.0";
         $this->Min = "";
         $this->CVV = "";
@@ -691,7 +685,7 @@ class GestPayCrypt
      * @param string $a
      * @param string $b
      *
-     * @return int|string
+     * @return string
      */
     protected function _http_get_response($type, $a, $b)
     {
@@ -815,8 +809,8 @@ class GestPayCrypt
     }
 
     /**
-     * @param $errorCode
-     * @param $errorDescription
+     * @param string $errorCode
+     * @param string $errorDescription
      * @return GestPayCrypt
      */
     protected function setError($errorCode, $errorDescription)
