@@ -27,7 +27,7 @@
  *
  */
 
-class GestPayLanguage
+class GestPayLanguage extends GestPayData
 {
     const ITALIAN = 1;
     const ENGLISH = 2;
@@ -35,13 +35,4 @@ class GestPayLanguage
     const FRENCH = 4;
     const GERMAN = 5;
 
-    public static function getLanguageCode($language)
-    {
-        $language = strtoupper($language);
-        if (defined($language)) {
-            return constant("self::$language");
-        }
-
-        return false;
-    }
 }

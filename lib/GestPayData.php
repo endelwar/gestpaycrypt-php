@@ -27,19 +27,16 @@
  *
  */
 
-class GestPayCurrency extends GestPayData
+class GestPayData
 {
-    const USD = 1; // US Dollar
-    const GBP = 2; // Pound sterling
-    const CHF = 3; // Swiss franc
-    const DKK = 7; // Danish krone
-    const NOK = 8; // Norwegian krone
-    const SEK = 9; // Swedish krona
-    const CAD = 12; // Canadian dollar
-    const ITL = 18; // Italian lira
-    const JPY = 71; // Japanese yen
-    const HKD = 103; // Hong Kong dollar
-    const BRL = 234; // Brazilian real
-    const EUR = 242; // Euro
+    public static function getCode($costantName)
+    {
+        $costantName = strtoupper($costantName);
+        if (defined("static::$costantName")) {
 
-}
+            return constant("static::$costantName");
+        }
+
+        return false;
+    }
+} 
