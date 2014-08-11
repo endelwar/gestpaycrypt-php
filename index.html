@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Gestpaycrypt-php by endelwar</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Gestpaycrypt-php</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/endelwar/gestpaycrypt-php">View the Project on GitHub <small>endelwar/gestpaycrypt-php</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/endelwar/gestpaycrypt-php/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/endelwar/gestpaycrypt-php/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/endelwar/gestpaycrypt-php">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="gestpaycrypt-php" class="anchor" href="#gestpaycrypt-php"><span class="octicon octicon-link"></span></a>GestPayCrypt-PHP</h1>
+
+<p>GestPayCrypt-PHP e` l'implementazione open source (licenza LGPL) in PHP delle
+classi GestPayCrypt e GestPayCryptHS che Bancasella distribuisce in Java per
+permettere l'interfacciamento al sistema di pagamento online GestPay.</p>
+
+<p>Questa reimplementazione in PHP mantiene la stessa interfaccia pubblica
+di quella originale, permettendo, quindi, di fare a meno di installare
+l'ambiente di esecuzione java sul server web, ed evitare di configurare
+il supporto java in PHP, cosa non sempre possibile, soprattutto in
+situazioni di hosting.</p>
+
+<p>La documentazione ufficiale di Banca Sella per il suo utilizzo e`
+valida anche per questa reimplementazione:</p>
+
+<p><a href="http://www.sellanet.it/download.asp">http://www.sellanet.it/download.asp</a></p>
+
+<h2>
+<a name="tipo-di-architetture-supportate-dal-sistema-di-pagamento-online-gestpay" class="anchor" href="#tipo-di-architetture-supportate-dal-sistema-di-pagamento-online-gestpay"><span class="octicon octicon-link"></span></a>Tipo di architetture supportate dal sistema di pagamento online GestPay</h2>
+
+<p>Attenzione a non fare confusione: le architetture supportate da Banca
+Sella sono 3:</p>
+
+<ul>
+<li>GestPay con architettura OneTimePassword</li>
+<li>GestPay con architettura compatibile Payment Gateway Banca Sella</li>
+<li>GestPay con architettura Crittografia</li>
+</ul><p>La classe GestPayCrypt lavora solo ed esclusivamente con GestPay con
+architettura Crittografia. La prima e la seconda architettura continuano
+ad utilizzare le one time password (file ric e ris) per retrocompatibilita`.</p>
+
+<h2>
+<a name="classe-high-security-gestpaycrypths" class="anchor" href="#classe-high-security-gestpaycrypths"><span class="octicon octicon-link"></span></a>Classe High Security GestPayCryptHS</h2>
+
+<p>Se si intende utilizzare una connessione sicura HTTPS per le comunicazioni
+server to server bisogna instanziare la classe GestPayCryptHS (high security)
+in tutto e per tutto uguale nell'interfaccia a GestPayCrypt.
+Perche<code>tale classe possa funzionare correttamente e</code> necessario soddisfare almeno
+uno dei seguenti requisiti:</p>
+
+<p>1) Versione di PHP &gt; 4.3.0 e supporto estensione OpenSSL
+2) PHP con supporto CURL
+3) Binario CURL disponibile alla URL: <a href="http://curl.haxx.se/">http://curl.haxx.se/</a></p>
+
+<h2>
+<a name="links" class="anchor" href="#links"><span class="octicon octicon-link"></span></a>Links</h2>
+
+<p>Banca Sella
+<a href="http://www.sella.it/">http://www.sella.it/</a></p>
+
+<p>Sistema di pagamento online GestPay e documentazione relativa
+<a href="http://www.easynolo.it/">http://www.easynolo.it/</a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/endelwar">endelwar</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-51156205-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
